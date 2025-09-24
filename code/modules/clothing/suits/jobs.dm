@@ -155,8 +155,10 @@
 		)
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/armoured
-		armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
-		hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/armoured
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/armoured
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/no_name
 	name = "dark hoodie"
@@ -243,7 +245,7 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/reagent_containers/spray/pepper, /obj/item/flashlight, /obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/detective_scanner, /obj/item/taperecorder)
-	armor = list(MELEE = 25, BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 45)
+	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 45)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
@@ -256,6 +258,8 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	armor_plate = /obj/item/armor_plate/handmade_ablative
 
 /obj/item/clothing/suit/storage/det_suit/black
 	sprite_sheets = list(
@@ -311,9 +315,11 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite)
-	armor = list(melee = 25, bullet = 10, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 45)
+	armor = list(melee = 25, bullet = 0, laser = 0, energy = 10, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 45)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	armor_plate = /obj/item/armor_plate/light_ablative
 
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
@@ -328,7 +334,9 @@
 /obj/item/clothing/suit/storage/blueshield/srt
 	name = "SRT coat"
 	desc = "Dark blue armored coat. Excellent defense against most types of damage."
-	armor = list(melee = 45, bullet = 35, laser = 35, energy = 20, bomb = 50, rad = 40, fire = 40, acid = 90)
+	armor = list(melee = 45, bullet = 0, laser = 0, energy = 20, bomb = 50, rad = 40, fire = 40, acid = 90)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 //Engineering
 /obj/item/clothing/suit/storage/hazardvest

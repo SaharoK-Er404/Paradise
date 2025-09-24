@@ -58,6 +58,26 @@
 
 	var/obj/item/radio/spy_spider/spy_spider_attached = null
 
+	/// Installed armor plate
+	var/obj/item/armor_plate/armor_plate = null
+	/// Allowed armor plate class
+	var/allowed_armor_plate = ARMOR_PLATE_SLOT_NONE
+	/// Allow remove armor plate with screwdriver
+	var/can_remove_armor_plate = FALSE
+	/// Overlays for armor plate state
+	var/list/status_overlays = null
+
+
+/obj/item/clothing/Initialize(mapload)
+	. = ..()
+	if(!ispath(armor_plate))
+		return
+	armor_plate = new armor_plate(src)
+	armor_plate.forceMove(src)
+	slowdown += armor_plate.equipped_slowdown
+	armor_plate.subscribe_equip_signal(src)
+	armor_plate.attached_suit = src
+
 /obj/item/clothing/examine(mob/user)
 	. = ..()
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -69,6 +89,20 @@
 		if(0 to 25)
 			. +=  span_warning("Да [genderize_ru(gender, "он разваливается", "она разваливается", "оно разваливается", "они разваливаются")] на глазах!")
 
+	if(armor_plate)
+		. += armor_plate.get_examine_text(integrated_armor = !can_remove_armor_plate)
+		if(can_remove_armor_plate)
+			. += span_notice("Используйте <b>ALT+ЛКМ</b>, чтобы извлечь бронеплиту.")
+		return
+
+	if(allowed_armor_plate == ARMOR_PLATE_SLOT_NONE)
+		return
+	. += span_notice("Совместимо с <b>[GLOB.armor_slot_name["[allowed_armor_plate]"]]</b>.")
+
+/obj/item/clothing/get_description_info()
+	if(!armor_plate)
+		return ..()
+	return armor_plate.description_info
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
@@ -77,6 +111,12 @@
 	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
 	return TRUE
 
+/obj/item/clothing/update_overlays()
+	. = ..()
+	if(!status_overlays)
+		return
+	for(var/mutable_appearance/status_overlay as anything in status_overlays)
+		. += status_overlay
 
 /obj/item/clothing/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/radio/spy_spider))
@@ -114,6 +154,19 @@
 			span_notice("Вы нанесли немного нанопасты на [declent_ru(ACCUSATIVE)]. [capitalize(declent_ru(NOMINATIVE))] выглядит целее."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/armor_plate))
+		var/obj/item/armor_plate/armor_plate = I
+		if(armor_plate.try_attach_to_clothing(user, src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+	//repair of integrated armor plates
+	if(!can_remove_armor_plate && armor_plate && istype(I, armor_plate.repair_type))
+		if(src == user.get_item_by_slot(slot_flags))
+			balloon_alert(user, "сначала снимите с себя!")
+			return ..()
+		return armor_plate.attackby(I, user, params)
+
 	return ..()
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
@@ -172,15 +225,16 @@
 
 /obj/item/clothing/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
+	SEND_SIGNAL(src, COMSIG_CLOTHING_UNEQUIP, src, user)
 	if(!istype(user) || !LAZYLEN(clothing_traits))
 		return .
 	remove_clothing_traits(user)
 
 /obj/item/clothing/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
+	SEND_SIGNAL(src, COMSIG_CLOTHING_EQUIP, src, user)
 	if(!istype(user) || !LAZYLEN(clothing_traits) || !(slot_flags & slot))
 		return .
-
 	add_clothing_traits(user)
 
 /obj/item/clothing/proc/remove_clothing_traits(mob/living/user)
@@ -196,7 +250,12 @@
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
-//Ears: currently only used for headsets and earmuffs
+/obj/item/clothing/click_alt(mob/user)
+	if(armor_plate && armor_plate.try_detach_from_clothing(user, src))
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
+
+// MARK: Ears
 /obj/item/clothing/ears
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
@@ -270,7 +329,8 @@
 	return original_ear.attack_hand(user, pickupfireoverride)
 
 
-//Glasses
+// MARK: Glasses
+
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
@@ -343,7 +403,8 @@
 	over_mask = !over_mask
 	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
 
-//Gloves
+// MARK: Gloves
+
 /obj/item/clothing/gloves
 	name = "gloves"
 	gender = PLURAL //Carn: for grammarically correct text-parsing
@@ -529,7 +590,8 @@
 		. |= accessory.GetAccess()
 
 
-//Head
+// MARK: Head
+
 /obj/item/clothing/head
 	name = "head"
 	gender = MALE
@@ -550,7 +612,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
-
 
 /obj/item/clothing/head/update_icon_state()
 	if(..())
@@ -597,7 +658,8 @@
 		sleep(1.5 SECONDS)
 
 
-//Mask
+// MARK: Mask
+
 /obj/item/clothing/mask
 	name = "mask"
 	gender = FEMALE
@@ -700,7 +762,8 @@
 /obj/item/clothing/mask/proc/change_speech_verb()
 	return
 
-//Shoes
+// MARK: Shoes
+
 /obj/item/clothing/shoes
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
@@ -816,7 +879,8 @@
 	update_equipped_item(update_speedmods = FALSE)
 
 
-//Suit
+// MARK: Suit
+
 /obj/item/clothing/suit
 	name = "suit"
 	gender = MALE
@@ -848,6 +912,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
+	can_remove_armor_plate = TRUE
+
+
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()
 	setup_shielding()
@@ -860,6 +928,7 @@
  **/
 /obj/item/clothing/suit/proc/setup_shielding()
 	return
+
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(mob/user)
@@ -939,7 +1008,8 @@
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
 
-//Spacesuit
+
+// MARK: Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //      Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
 /obj/item/clothing/head/helmet/space
@@ -1005,21 +1075,26 @@
 	return ..()
 
 
-/obj/item/clothing/suit/space/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
+/obj/item/clothing/suit/space/screwdriver_act(mob/user, obj/item/item)
+	if(jetpack && try_remove_jetack(user, item))
+		return TRUE
+	. = ..()
+
+/obj/item/clothing/suit/space/proc/try_remove_jetack(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
+		return FALSE
 	if(!jetpack)
 		to_chat(user, span_warning("[src] has no jetpack installed."))
-		return
+		return FALSE
 	if(src == user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
 		to_chat(user, span_warning("You cannot remove the jetpack from [src] while wearing it."))
-		return
+		return FALSE
 	jetpack.turn_off(user)
 	jetpack.our_suit = null
 	jetpack.forceMove(drop_location())
 	jetpack = null
 	to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
+	return TRUE
 
 
 /obj/item/clothing/suit/space/equipped(mob/user, slot, initial = FALSE)
@@ -1059,7 +1134,8 @@
 	return ..()
 
 
-// Under clothing
+// MARK: Under clothing
+
 /obj/item/clothing/under
 	name = "under"
 	gender = MALE
@@ -1151,6 +1227,7 @@
 			. += accessory.acc_overlay
 
 
+// MARK: Under accessory
 /*
  * # can_attach_accessory
  *
@@ -1212,7 +1289,7 @@
 /obj/item/clothing/under/click_alt(mob/user)
 	if(handle_accessories_removal(user))
 		return CLICK_ACTION_SUCCESS
-	return CLICK_ACTION_BLOCKING
+	return ..()
 
 
 /obj/item/clothing/under/proc/handle_accessories_removal(mob/user)
@@ -1297,7 +1374,8 @@
 	else
 		..()
 
-// Neck clothing
+// MARK: Neck clothing
+
 /obj/item/clothing/neck
 	name = "necklace"
 	icon = 'icons/obj/clothing/neck.dmi'
@@ -1340,6 +1418,7 @@
 	return ..()
 
 
+// MARK: Traits
 /**
  * Inserts a trait (or multiple traits) into the clothing traits list
  *

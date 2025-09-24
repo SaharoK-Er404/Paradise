@@ -1,42 +1,42 @@
 //Damage things	//TODO: merge these down to reduce on defines
 //Way to waste perfectly good damagetype names (BRUTE) on this... If you were really worried about case sensitivity, you could have just used lowertext(damagetype) in the proc...
-#define BRUTE		"brute"
-#define BURN		"fire"
-#define TOX			"tox"
-#define OXY			"oxy"
-#define CLONE		"clone"
-#define STAMINA	"stamina"
-#define BRAIN		"brain"
+#define BRUTE "brute"
+#define BURN "fire"
+#define TOX "tox"
+#define OXY "oxy"
+#define CLONE "clone"
+#define STAMINA "stamina"
+#define BRAIN "brain"
 
 //damage flags
-#define MELEE		"melee"
-#define BULLET		"bullet"
-#define LASER		"laser"
-#define ENERGY		"energy"
-#define BOMB		"bomb"
-#define BIO		"bio"
-#define RAD		"rad"
-#define FIRE		"fire"
-#define ACID		"acid"
-#define MAGIC		"magic"
+#define MELEE "melee"
+#define BULLET "bullet"
+#define LASER "laser"
+#define ENERGY "energy"
+#define BOMB "bomb"
+#define BIO	"bio"
+#define RAD	"rad"
+#define FIRE "fire"
+#define ACID "acid"
+#define MAGIC "magic"
 
 /// All armors
 #define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE, RAD)
 
-#define STUN		"stun"
-#define WEAKEN		"weaken"
-#define STAMCRIT	"stamcrit"
-#define KNOCKDOWN	"knockdown"
-#define PARALYZE	"paralize"
-#define SLEEP		"sleep"
-#define IMMOBILIZE	"immobilize"
-#define IRRADIATE	"irradiate"
-#define STUTTER		"stutter"
-#define SLUR		"slur"
-#define EYE_BLUR	"eye_blur"
-#define DROWSY		"drowsy"
-#define JITTER		"jitter"
-#define CONFUSED	"confused"
+#define STUN "stun"
+#define WEAKEN "weaken"
+#define STAMCRIT "stamcrit"
+#define KNOCKDOWN "knockdown"
+#define PARALYZE "paralize"
+#define SLEEP "sleep"
+#define IMMOBILIZE "immobilize"
+#define IRRADIATE "irradiate"
+#define STUTTER	"stutter"
+#define SLUR "slur"
+#define EYE_BLUR "eye_blur"
+#define DROWSY "drowsy"
+#define JITTER "jitter"
+#define CONFUSED "confused"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS (1<<0)
@@ -52,7 +52,7 @@
 #define CANSTAMCRIT (1<<2)
 #define CANKNOCKDOWN (1<<3)
 #define CANPARALYSE (1<<4)
-#define CANPUSH	 (1<<5)
+#define CANPUSH	(1<<5)
 #define PASSEMOTES (1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define IGNORESLOWDOWN (1<<7)
 #define IGNORE_SPEED_CHANGES (1<<8)
@@ -102,7 +102,7 @@
 #define ATTACK_EFFECT_KICK		"kick"
 #define ATTACK_EFFECT_SMASH		"smash"
 #define ATTACK_EFFECT_CLAW		"claw"
-#define ATTACK_EFFECT_SLASH	"slash"
+#define ATTACK_EFFECT_SLASH		"slash"
 #define ATTACK_EFFECT_DISARM	"disarm"
 #define ATTACK_EFFECT_BITE		"bite"
 #define ATTACK_EFFECT_MECHFIRE	"mech_fire"

@@ -788,6 +788,7 @@ Difficulty: Very Hard
 
 /obj/projectile/bullet/ancient_robot_bullet
 	damage = 8
+	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
 /obj/projectile/bullet/rock
 	name = "thrown rock"
