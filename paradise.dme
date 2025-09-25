@@ -9,7 +9,6 @@
 // END_FILE_DIR
 // BEGIN_PREFERENCES
 #define DEBUG
-#define MULTIINSTANCE
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "__odlint.dm"
@@ -628,6 +627,8 @@
 #include "code\datums\components\riding\riding.dm"
 #include "code\datums\components\riding\riding_mob.dm"
 #include "code\datums\components\riding\riding_vehicle.dm"
+#include "code\datums\components\material\material_container.dm"
+#include "code\datums\components\material\remote_materials.dm"
 #include "code\datums\diseases\_disease.dm"
 #include "code\datums\diseases\_MobProcs.dm"
 #include "code\datums\diseases\appendicitis.dm"
