@@ -698,17 +698,20 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/damaged
 	name = "damaged blood-red hardsuit"
 	desc = "Damaged advanced hardsuit designed for work in special operations. There are a many patches visible on the suit. Its mode switcher system looks damaged and forced in travel mode. Property of Gorlex Marauders."
-	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
 	icon_state = "hardsuit1-syndi"
 	on = TRUE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
 	actions_types = list(/datum/action/item_action/toggle_helmet)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	armor_plate = /obj/item/armor_plate/light_steel
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
 	icon_state = "hardsuit1-syndi"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	on = TRUE
+	armor_plate = null
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged/update_icon_state()

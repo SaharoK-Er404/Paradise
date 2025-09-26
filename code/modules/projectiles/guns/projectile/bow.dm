@@ -154,6 +154,7 @@
 	var/faction_bonus_damage = 13
 	var/nemesis_factions = MINING_FACTIONS
 	var/nemesis_faction = FALSE
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/reusable/arrow/prehit(atom/target)
 	var/mob/living/H = target

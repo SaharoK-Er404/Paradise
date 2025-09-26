@@ -15,6 +15,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	flag = "laser"
+	armour_penetration_level = LASER_PENETRATION_MEDIUM
 	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	reflectability = REFLECTABILITY_ENERGY
@@ -28,6 +29,7 @@
 
 /obj/projectile/beam/laser/light
 	damage = 15
+	armour_penetration_level = LASER_PENETRATION_LIGHT
 
 /obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
@@ -42,6 +44,7 @@
 	icon_state = "heavylaser"
 	damage = 50
 	hitsound = 'sound/weapons/resonator_blast.ogg'
+	armour_penetration_level = LASER_PENETRATION_MAX
 
 /obj/projectile/beam/laser/slug
 	name = "laser slug beam"
@@ -55,6 +58,7 @@
 	)
 	damage = 50
 	stamina = 33
+	armour_penetration_level = LASER_PENETRATION_HEAVY
 
 /obj/projectile/beam/laser/shot
 	name = "laser shot beam"
@@ -68,6 +72,7 @@
 	)
 	icon_state = "lasershot"
 	damage = 15
+	armour_penetration_level = LASER_PENETRATION_LIGHT
 
 /obj/projectile/beam/practice
 	name = "practice laser"
@@ -83,6 +88,7 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	nodamage = TRUE
 	log_override = TRUE
+	armour_penetration_level = LASER_PENETRATION_NONE
 
 /obj/projectile/beam/scatter
 	name = "laser pellet"
@@ -96,6 +102,7 @@
 	)
 	icon_state = "scatterlaser"
 	damage = 5
+	armour_penetration_level = LASER_PENETRATION_LIGHT
 
 /obj/projectile/beam/xray
 	name = "x-ray beam"
@@ -116,6 +123,7 @@
 	range = 15
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
+	armour_penetration_level = LASER_PENETRATION_HEAVY
 
 /obj/projectile/beam/disabler
 	name = "disabler beam"
@@ -140,6 +148,7 @@
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
 	damage = 25
+	armour_penetration_level = LASER_PENETRATION_LIGHT
 
 /obj/projectile/beam/specter/disabler
 	name = "specter paralyzer beam"
@@ -171,6 +180,7 @@
 	hitsound_wall = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_DARK_BLUE
+	armour_penetration_level = LASER_PENETRATION_MAX
 
 /obj/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
 	if(istype(target, /turf) || isstructure(target) || ismachinery(target))
@@ -204,6 +214,7 @@
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
+	armour_penetration_level = LASER_PENETRATION_HEAVY
 
 /obj/projectile/beam/emitter/singularity_pull()
 	return //don't want the emitters to miss
@@ -227,6 +238,7 @@
 	log_override = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_DARK_BLUE
+	armour_penetration_level = LASER_PENETRATION_NONE
 
 /obj/projectile/beam/lasertag/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -278,6 +290,7 @@
 	forced_accuracy = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PINK
+	armour_penetration_level = LASER_PENETRATION_HEAVY
 
 /obj/projectile/beam/podsniper/disabler
 	name = "sniper disabler beam"
@@ -311,6 +324,7 @@
 	icon_state = "LSR_kill"
 	damage = 45
 	hitsound = 'sound/weapons/resonator_blast.ogg'
+	armour_penetration_level = LASER_PENETRATION_HEAVY
 
 /obj/projectile/beam/immolator
 	name = "immolation beam"
@@ -336,6 +350,7 @@
 	)
 	damage = 45
 	icon_state = "heavylaser"
+	armour_penetration_level = LASER_PENETRATION_HEAVY
 
 /obj/projectile/beam/immolator/weak
 	name = "light immolation beam"
@@ -349,6 +364,7 @@
 	)
 	damage = 8
 	icon_state = "scatterlaser"
+	armour_penetration_level = LASER_PENETRATION_LIGHT
 
 /obj/projectile/beam/immolator/mech
 	name = "mecha immolation beam"
@@ -384,6 +400,7 @@
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PURPLE
+	armour_penetration_level = LASER_PENETRATION_MAX
 
 /obj/projectile/beam/instakill/blue
 	icon_state = "blue_laser"
@@ -406,6 +423,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	icon_state = "blue_laser"
 	light_color = LIGHT_COLOR_LIGHT_CYAN
+	armour_penetration_level = LASER_PENETRATION_LIGHT
 
 /obj/projectile/beam/dominator/slaughter
 	name = "execution slaughter beam"
@@ -445,6 +463,7 @@
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_LIGHT_CYAN
+	armour_penetration_level = LASER_PENETRATION_LIGHT
 
 
 /obj/projectile/beam/anomaly
@@ -474,6 +493,7 @@
 	var/anom_weaken = 0
 	/// The moment at which the reduction in the effects of the anomaly will be reset.
 	var/weaken_time = 0
+	armour_penetration_level = LASER_PENETRATION_NONE
 
 /obj/projectile/beam/anomaly/on_hit(atom/target, blocked, hit_zone)
 	if(!isanomaly(target))

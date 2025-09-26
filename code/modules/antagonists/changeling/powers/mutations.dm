@@ -714,6 +714,8 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
+	armor_plate_flags = ARMOR_PLATE_EMPTY_FLAGS
+	armor_plate = null
 
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
@@ -748,6 +750,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
+	armor_plate = null
 
 
 /obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
@@ -814,7 +817,7 @@
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 	item_flags = DROPDEL
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
-	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
 	species_restricted = null
 	faction_restricted = null
 

@@ -132,7 +132,7 @@
 	..(gibbed)
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, attack_flag)
+/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, attack_flag, penetration_level = BASIC_PENETRATION, damage = 0)
 	var/armorval = 0
 
 	if(def_zone)
